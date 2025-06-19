@@ -1,21 +1,26 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
-package RizkyTama100425;
+package ervan100425;
 
 /**
  *
- * @author LENOVO
+ * @author labor p1
  */
-public class Student extends Person{
-    public Student()
-    {
-        
+public class Student extends Person {
+
+    public Student() {
+//        super("Ani","Bukittinggi");
+        super.name = "Ani";
+        super.address = "Budi";
         System.out.println("Inside Student:Constructor");
     }
-    public String getName(){ 
-        System.out.println("Parent: getName");  
-        return name;  
+
+    @Override
+    public String getName() {
+        System.out.println("Student: getName");
+        return name;
     }
 }

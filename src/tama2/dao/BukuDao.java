@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ervan.dao;
+package tama2.dao;
 
-import ervan.model.Buku;
+import tama2.model.Buku;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

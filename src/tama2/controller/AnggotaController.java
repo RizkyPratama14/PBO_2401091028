@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ervan.controller;
+package tama2.controller;
 
-import ervan.model.Anggota;
-import ervan.view.FormAnggota;
+import tama2.model.Anggota;
+import tama2.view.FormAnggota;
 
 /**
  *

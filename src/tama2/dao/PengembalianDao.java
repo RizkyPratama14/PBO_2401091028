@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ervan.dao;
+package tama2.dao;
 
-import ervan.model.Anggota;
-import ervan.model.Buku;
-import ervan.model.Peminjaman;
-import ervan.model.Pengembalian;
+import tama2.model.Anggota;
+import tama2.model.Buku;
+import tama2.model.Peminjaman;
+import tama2.model.Pengembalian;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

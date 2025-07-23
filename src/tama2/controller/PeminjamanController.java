@@ -112,7 +112,7 @@ public class PeminjamanController {
         try {
             DefaultTableModel model = (DefaultTableModel) formPeminjaman.getTblPeminjaman().getModel();
             model.setNumRows(0);
-            List<Peminjaman> list = peminjamanDao.getAll();
+            List<Peminjaman> list = peminjamanDao.getAllPeminjaman();
             for (Peminjaman peminjaman : list) {
                 Object[] data = {
                     peminjaman.getAnggota().getKode(),

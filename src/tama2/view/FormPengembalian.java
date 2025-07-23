@@ -1,17 +1,17 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package tama2.view;
 
 import tama2.controller.PengembalianController;
 import javax.swing.JComboBox;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 /**
  *
- * @author LABSIDOSEN
+ * @author WINDOWS
  */
 public class FormPengembalian extends javax.swing.JFrame {
 
@@ -19,41 +19,52 @@ public class FormPengembalian extends javax.swing.JFrame {
      * Creates new form FormPengembalian
      */
     private PengembalianController controller;
+
     public FormPengembalian() {
         initComponents();
         controller = new PengembalianController(this);
-        controller.bersihForm();
+        controller.clearScreen();
+        controller.viewData();
     }
 
-    public JComboBox<String> getCboAnggota() {
-        return cboAnggota;
+    public JTextField getFieldId() {
+        return fieldId;
     }
 
-    public JComboBox<String> getCboBuku() {
-        return cboBuku;
+    public JComboBox<String> getOptionKodeAnggota() {
+        return optionKodeAnggota;
     }
 
-    public JTextField getTxtDenda() {
-        return txtDenda;
+    public JComboBox<String> getOptionKodeBuku() {
+        return optionKodeBuku;
     }
 
-    public JTextField getTxtTerlambat() {
-        return txtTerlambat;
+    public JTextField getFieldDenda() {
+        return fieldDenda;
     }
 
-    public JTextField getTxtTglDikembalikan() {
-        return txtTglDikembalikan;
+    public JTextField getFieldTerlambat() {
+        return fieldTerlambat;
     }
 
-    public JTextField getTxtTglKembali() {
-        return txtTglKembali;
+    public JTextField getFieldTglKembali() {
+        return fieldTglKembali;
     }
 
-    public JTextField getTxtTglPinjam() {
-        return txtTglPinjam;
+    public JTextField getFieldTglPinjam() {
+        return fieldTglPinjam;
+    }
+
+    public JTextField getFieldTgldikembalikan() {
+        return fieldTgldikembalikan;
+    }
+
+    public JTable getTabelPengembalian() {
+        return tabelPengembalian;
     }
 
     
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,7 +101,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel1.setText("Kode Anggota");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(20, 20, 100, 14);
+        jLabel1.setBounds(20, 20, 100, 16);
 
         cboAnggota.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(cboAnggota);
@@ -98,7 +109,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel2.setText("Buku");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 50, 120, 14);
+        jLabel2.setBounds(20, 50, 120, 16);
 
         cboBuku.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         getContentPane().add(cboBuku);
@@ -106,7 +117,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel3.setText("Tgl Pinjam");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 80, 110, 14);
+        jLabel3.setBounds(20, 80, 110, 16);
 
         txtTglPinjam.setText("jTextField1");
         getContentPane().add(txtTglPinjam);
@@ -114,7 +125,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel4.setText("Tgl Kembali");
         getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 110, 130, 14);
+        jLabel4.setBounds(20, 110, 130, 16);
 
         txtTglKembali.setText("jTextField2");
         getContentPane().add(txtTglKembali);
@@ -122,7 +133,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel5.setText("Tgl Dikembalikan");
         getContentPane().add(jLabel5);
-        jLabel5.setBounds(20, 140, 120, 14);
+        jLabel5.setBounds(20, 140, 120, 16);
 
         txtTglDikembalikan.setText("jTextField3");
         getContentPane().add(txtTglDikembalikan);
@@ -130,7 +141,7 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel6.setText("Terlambat");
         getContentPane().add(jLabel6);
-        jLabel6.setBounds(20, 170, 110, 14);
+        jLabel6.setBounds(20, 170, 110, 16);
 
         txtTerlambat.setText("jTextField4");
         getContentPane().add(txtTerlambat);
@@ -138,13 +149,18 @@ public class FormPengembalian extends javax.swing.JFrame {
 
         jLabel7.setText("Denda");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(20, 200, 120, 14);
+        jLabel7.setBounds(20, 200, 120, 16);
 
         txtDenda.setText("jTextField5");
         getContentPane().add(txtDenda);
         txtDenda.setBounds(150, 200, 370, 30);
 
         jButton1.setText("insert");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton1);
         jButton1.setBounds(20, 250, 90, 30);
 
@@ -202,15 +218,72 @@ public class FormPengembalian extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        controller.searchPinjam();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnExitActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void fieldTerlambatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTerlambatActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_fieldTerlambatActionPerformed
+
+    private void optionKodeBukuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionKodeBukuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_optionKodeBukuActionPerformed
+
+    private void btnProsesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProsesActionPerformed
         controller.proses();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnProsesActionPerformed
+
+    private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
+        controller.insert();
+        controller.clearScreen();
+        controller.viewData();
+        
+    }//GEN-LAST:event_btnTambahActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        controller.delete();
+        controller.clearScreen();
+        controller.viewData();
+    }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        controller.clearScreen();
+    }//GEN-LAST:event_btnResetActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        controller.update();
+        controller.clearScreen();
+        controller.viewData();
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
+        controller.searchPeminjaman();
+    }//GEN-LAST:event_btnCariActionPerformed
+
+    private void fieldTglKembaliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTglKembaliActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldTglKembaliActionPerformed
+
+    private void fieldTglPinjamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldTglPinjamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldTglPinjamActionPerformed
+
+    private void fieldDendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldDendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldDendaActionPerformed
+
+    private void fieldIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldIdActionPerformed
+
+    private void btnCariIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariIdActionPerformed
+        controller.searchPengembalian();
+    }//GEN-LAST:event_btnCariIdActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +310,7 @@ public class FormPengembalian extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FormPengembalian.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -270,4 +344,16 @@ public class FormPengembalian extends javax.swing.JFrame {
     private javax.swing.JTextField txtTglKembali;
     private javax.swing.JTextField txtTglPinjam;
     // End of variables declaration//GEN-END:variables
+
+    public Object getFieldTglkembali() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getFieldTglpinjam() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getTxtTglkembali() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

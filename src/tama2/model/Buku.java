@@ -10,11 +10,11 @@ package tama2.model;
  * @author labor p1
  */
 public class Buku {
-    private String kode;
     private String judul;
+    private int tahun;
+    private String kode;
     private String pengarang;
     private String penerbit;
-    private int tahun;
 
     public Buku() {
     }

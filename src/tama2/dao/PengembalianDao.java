@@ -1,104 +1,131 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package tama2.dao;
 
-import tama2.model.Anggota;
-import tama2.model.Buku;
 import tama2.model.Peminjaman;
 import tama2.model.Pengembalian;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
- * @author labor p1
+ * @author WINDOWS
  */
 public class PengembalianDao {
-
     public void insert(Pengembalian pengembalian) throws Exception {
-        Connection con = new Koneksi().getKoneksi();
-        String sql = "insert into pengembalian values(?,?,?,?,?,?)";
+        Peminjaman peminjaman = pengembalian.getPeminjaman();
+        java.sql.Connection con = new Koneksi().getKoneksi();
+        String sql = "INSERT INTO pengembalian (kode_anggota, kode_buku, tgl_pinjam, tgl_dikembalikan, terlambat, denda) "
+                + "VALUES (?,?,?,?,?,?)";
+
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, pengembalian.getPeminjaman().getAnggota().getKodeanggota());
-        ps.setString(2, pengembalian.getPeminjaman().getBuku().getKode());
-        ps.setString(3, pengembalian.getPeminjaman().getTglpinjam());
+        ps.setString(1, peminjaman.getAnggota().getKode());
+        ps.setString(2, peminjaman.getBuku().getKode());
+        ps.setString(3, peminjaman.getTglpinjam());
         ps.setString(4, pengembalian.getTgldikembalikan());
         ps.setInt(5, pengembalian.getTerlambat());
-        ps.setInt(6, pengembalian.getDenda());
+        ps.setLong(6, pengembalian.getDenda());
         ps.executeUpdate();
     }
-
-    public void update(Pengembalian pengembalian) throws Exception {
-        Connection con = new Koneksi().getKoneksi();
-        String sql
-                = "update peminjaman set tgldikembalikan=?, terlambat=?, denda=? where kodeanggota=? and kodebuku=? and tglpinjam=?";
+    
+    public void update(Pengembalian pengembalian) throws Exception{
+        java.sql.Connection con = new Koneksi().getKoneksi();
+        String sql = "update pengembalian set tgl_dikembalikan=?, terlambat=?, denda=? where id_pengembalian=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, pengembalian.getTgldikembalikan());
         ps.setInt(2, pengembalian.getTerlambat());
-        ps.setInt(3, pengembalian.getDenda());
-        ps.setString(4, pengembalian.getPeminjaman().getAnggota().getKodeanggota());
-        ps.setString(5, pengembalian.getPeminjaman().getBuku().getKode());
-        ps.setString(6, pengembalian.getPeminjaman().getTglpinjam());
+        ps.setLong(3, pengembalian.getDenda());
+        ps.setInt(4, (int) pengembalian.getId());
+        
+        
         ps.executeUpdate();
     }
-
+    
     public void delete(Pengembalian pengembalian) throws Exception {
-        Connection con = new Koneksi().getKoneksi();
-        String sql = "delete from pengembalian where kodeanggota=? and kodebuku=? and tglpinjam=?";
+        java.sql.Connection con = new Koneksi().getKoneksi();
+        String sql = "delete from pengembalian where id_pengembalian=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, pengembalian.getPeminjaman().getAnggota().getKodeanggota());
-        ps.setString(2, pengembalian.getPeminjaman().getBuku().getKode());
-        ps.setString(3, pengembalian.getPeminjaman().getTglpinjam());
+        ps.setInt(1, (int) pengembalian.getId());
+        
+
         ps.executeUpdate();
     }
-
-    public Pengembalian getPengembalian(String kodeanggota, String kodebuku, String tglpinjam) throws Exception {
-        Connection con = new Koneksi().getKoneksi();
-        String sql = "select * from pengembalian "
-                + "where kodeanggota=? and kodebuku=? and tglpinjam=?";
+    
+    public Pengembalian getPengembalian(int idPengembalian) throws Exception{
+        java.sql.Connection con = new Koneksi().getKoneksi();
+        String sql = "select * from pengembalian"
+                + " where id_pengembalian=? ";
+        
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, kodeanggota);
-        ps.setString(2, kodebuku);
-        ps.setString(3, tglpinjam);
+        ps.setInt(1, idPengembalian);
         ResultSet rs = ps.executeQuery();
+        
         Pengembalian pengembalian = null;
         PeminjamanDao peminjamanDao = new PeminjamanDao();
-        if (rs.next()) {
+        
+        if(rs.next()){
             pengembalian = new Pengembalian();
-            Peminjaman peminjaman = peminjamanDao
-                .getPeminjaman(rs.getString(1), rs.getString(2), rs.getString(3));
+            pengembalian.setId(idPengembalian);
+            
+            String kodeAnggota = rs.getString(2);
+            String kodeBuku = rs.getString(3);
+            String tglPinjam = rs.getString(4);
+            
+            
+            Peminjaman peminjaman = peminjamanDao.getPeminjaman(kodeAnggota, kodeBuku, tglPinjam);
             pengembalian.setPeminjaman(peminjaman);
-            pengembalian.setTgldikembalikan(rs.getString(4));
-            pengembalian.setTerlambat(rs.getInt(4));
-            pengembalian.setDenda(rs.getInt(5));
+            pengembalian.setTgldikembalikan(rs.getString(5));
+            pengembalian.setTerlambat(rs.getInt(6));
+            pengembalian.setDenda((int) rs.getLong(7));
         }
+        
         return pengembalian;
+        
     }
-
-    public List<Pengembalian> getAllPengembalian() throws Exception {
-        Connection con = new Koneksi().getKoneksi();
+    
+    
+    public List<Pengembalian> getAll() throws Exception{
+        java.sql.Connection con = new Koneksi().getKoneksi();
         String sql = "select * from pengembalian";
         PreparedStatement ps = con.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        List<Pengembalian> pengembalianList = new ArrayList<>();
         Pengembalian pengembalian = null;
         PeminjamanDao peminjamanDao = new PeminjamanDao();
+        
+        List<Pengembalian> pengembalianAll = new ArrayList<>();
         while (rs.next()) {
             pengembalian = new Pengembalian();
-            Peminjaman peminjaman = peminjamanDao
-                 .getPeminjaman(rs.getString(1), rs.getString(2), rs.getString(3));
+            pengembalian.setId(rs.getInt(1));
+            Peminjaman peminjaman = peminjamanDao.getPeminjaman(rs.getString(2), rs.getString(3), rs.getString(4));
             pengembalian.setPeminjaman(peminjaman);
-            pengembalian.setTgldikembalikan(rs.getString(4));
-            pengembalian.setTerlambat(rs.getInt(4));
-            pengembalian.setDenda(rs.getInt(5));
-            pengembalianList.add(pengembalian);
+            pengembalian.setTgldikembalikan(rs.getString(5));
+            pengembalian.setTerlambat(rs.getInt(6));
+            pengembalian.setDenda((int) rs.getLong(7));
+            pengembalianAll.add(pengembalian);
         }
-        return pengembalianList;
+        return pengembalianAll;
+    }
+    
+    
+    public int getKurangTanggal(String tgl1, String tgl2) throws SQLException, Exception{
+        java.sql.Connection con = new Koneksi().getKoneksi();
+        String sql = "select datediff(?,?)";
+        
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, tgl1);
+        ps.setString(2, tgl2);
+        
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            return rs.getInt(1);
+        }
+        return 0;
+          
     }
 }

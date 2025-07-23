@@ -7,20 +7,31 @@ package tama2.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author labor p1
- */
+
 public class Koneksi {
-
-    private String url = "jdbc:mysql://localhost/ervan_pustaka";
-    private String username = "root";
-    private String password = "";
-
-    public Connection getKoneksi() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.jdbc.Driver");
+    private final String url = "jdbc:mysql://localhost:3306/pbo_2401091028";
+    private final String username = "root";
+    private final String password = "";
+    
+    public Connection getKoneksi() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
         return DriverManager.getConnection(url, username, password);
+    }
+    
+    public static void main(String[] args) {
+        Koneksi k = new Koneksi();
+        try {
+            k.getKoneksi();
+            JOptionPane.showMessageDialog(null, "Koneksi Ok");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error :" 
+                    + ex.getMessage());
+            Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 }

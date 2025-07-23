@@ -7,7 +7,7 @@ package tama2.model;
 
 /**
  *
- * @author labor p1
+ * @author WINDOWS
  */
 public class Pengembalian {
     private Peminjaman peminjaman;
@@ -48,6 +48,14 @@ public class Pengembalian {
 
     public void setDenda(int denda) {
         this.denda = denda;
+    }
+
+    public void setId(int idPengembalian) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public Object getId() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

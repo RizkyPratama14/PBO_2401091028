@@ -21,7 +21,7 @@ public class AnggotaDao {
         Connection con = new Koneksi().getKoneksi();
         String sql = "insert into anggota values(?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, anggota.getKodeanggota());
+        ps.setString(1, anggota.getKode());
         ps.setString(2, anggota.getNama());
         ps.setString(3, anggota.getAlamat());
         ps.setString(4, anggota.getJekel());
@@ -36,7 +36,7 @@ public class AnggotaDao {
         ps.setString(1, anggota.getNama());
         ps.setString(2, anggota.getAlamat());
         ps.setString(3, anggota.getJekel());
-        ps.setString(4, anggota.getKodeanggota());
+        ps.setString(4, anggota.getKode());
         ps.executeUpdate();
     }
     
@@ -44,7 +44,7 @@ public class AnggotaDao {
         Connection con = new Koneksi().getKoneksi();
         String sql = "delete from anggota where kodeanggota=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, anggota.getKodeanggota());
+        ps.setString(1, anggota.getKode());
         ps.executeUpdate();
     }
     
@@ -57,7 +57,7 @@ public class AnggotaDao {
         Anggota anggota = null;
         if(rs.next()){
             anggota = new Anggota();
-            anggota.setKodeanggota(rs.getString(1));
+            anggota.setKode(rs.getString(1));
             anggota.setNama(rs.getString(2));
             anggota.setAlamat(rs.getString(3));
             anggota.setJekel(rs.getString(4));
@@ -74,7 +74,7 @@ public class AnggotaDao {
         Anggota anggota;
         while(rs.next()){
             anggota = new Anggota();
-            anggota.setKodeanggota(rs.getString(1));
+            anggota.setKode(rs.getString(1));
             anggota.setNama(rs.getString(2));
             anggota.setAlamat(rs.getString(3));
             anggota.setJekel(rs.getString(4));
@@ -82,5 +82,7 @@ public class AnggotaDao {
         }
         return anggotaList;
     }
+    
+    
     
 }

@@ -23,7 +23,7 @@ public class PeminjamanDao {
         Connection con = new Koneksi().getKoneksi();
         String sql = "insert into peminjaman values(?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, peminjaman.getAnggota().getKodeanggota());
+        ps.setString(1, peminjaman.getAnggota().getKode());
         ps.setString(2, peminjaman.getBuku().getKode());
         ps.setString(3, peminjaman.getTglpinjam());
         ps.setString(4, peminjaman.getTglkembali());
@@ -36,7 +36,7 @@ public class PeminjamanDao {
            "update peminjaman set tglkembali=? where kodeanggota=? and kodebuku=? and tglpinjam=?";
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setString(1, peminjaman.getTglkembali());
-        ps.setString(2, peminjaman.getAnggota().getKodeanggota());
+        ps.setString(2, peminjaman.getAnggota().getKode());
         ps.setString(3, peminjaman.getBuku().getKode());
         ps.setString(4, peminjaman.getTglpinjam());
         ps.executeUpdate();
@@ -46,7 +46,7 @@ public class PeminjamanDao {
         Connection con = new Koneksi().getKoneksi();
         String sql = "delete from peminjaman where kodeanggota=? and kodebuku=? and tglpinjam=?";
         PreparedStatement ps = con.prepareStatement(sql);
-        ps.setString(1, peminjaman.getAnggota().getKodeanggota());
+        ps.setString(1, peminjaman.getAnggota().getKode());
         ps.setString(2, peminjaman.getBuku().getKode());
         ps.setString(3, peminjaman.getTglpinjam());
         ps.executeUpdate();
